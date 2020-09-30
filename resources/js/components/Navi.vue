@@ -12,10 +12,13 @@
                         <router-link class="nav-link" :to="{name : 'index'}">Photos</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" :to="{name : 'login'}">Login</router-link>
+                        <router-link class="nav-link" :to="{name : 'dashboard'}" v-show="isLogged">Dashboard</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" :to="{name : 'register'}">Register</router-link>
+                        <router-link class="nav-link" :to="{name : 'login'}" v-show="!isLogged">Login</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" :to="{name : 'register'}" v-show="!isLogged">Register</router-link>
                     </li>
                 </ul>
             </div>
@@ -25,7 +28,17 @@
 
 <script>
     export default {
-        name: "Navi"
+        name: "Navi",
+        data(){
+            return{
+                isLogged: false
+            }
+        },
+        mounted() {
+            if (User.loggedIn()) {
+                this.isLogged = true
+            }
+        },
     }
 </script>
 
